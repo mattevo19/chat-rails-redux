@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 
-import { getMessages, selectChannel } from '../actions'
+import { getMessages } from '../actions'
 
 class ChannelList extends Component {
 
   // static getDerivedStateFromProps() should be used
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedChannel !== this.props.selectedChannel) {
-      this.props.getMessages(nextProps.selectedChannel);
+    if (nextProps.channelFromParams !== this.props.channelFromParams) {
+      this.props.getMessages(nextProps.channelFromParams);
     }
   }
 
 
-  handleClick = (channel) => {
-    this.props.selectChannel(channel)
-  }
 
   renderList = (channel) => {
     return(
       <li 
-        className={channel == this.props.selectedChannel? 'active': null}
-        // stops infinate loop??
-        onClick={()=> this.handleClick(channel)} 
+        className={channel == this.props.channelFromParams? 'active': null}
         role='presentation' 
-        key={channel}>#{channel}
+        key={channel}
+        >
+          <Link to={`/${channel}`}>
+            #{channel}
+          </Link>
     </li>
     )
   }
@@ -35,7 +35,6 @@ class ChannelList extends Component {
       <div className="channels-container">
         <span>REDUX CHAT</span>
         <ul>
-          {/* removed to clean up */}
           {this.props.channels.map(this.renderList)}
         </ul>
       </div>
@@ -45,15 +44,13 @@ class ChannelList extends Component {
 
 function mapStateToProps(state) {
   return {
-    channels: state.channels,
-    selectedChannel: state.selectedChannel
+    channels: state.channels
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { selectChannel: selectChannel,
-      getMessages: getMessages },
+    { getMessages },
     dispatch
   )
 }

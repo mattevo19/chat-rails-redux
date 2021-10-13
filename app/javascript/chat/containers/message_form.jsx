@@ -19,7 +19,7 @@ class MessageForm extends Component {
   handleSumbit = (event) => {
     //done so whole page isnt refreshed very time something is submitted
     event.preventDefault();
-    this.props.createMessage(this.props.selectedChannel,this.props.currentUser,this.state.value);
+    this.props.createMessage(this.props.channelFromParams,this.props.currentUser,this.state.value);
     // resets the value after being submitted
     this.setState({value: ''})
   }
@@ -35,7 +35,6 @@ class MessageForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    selectedChannel: state.selectedChannel,
     currentUser: state.currentUser,
   }
 }
@@ -43,7 +42,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
   return bindActionCreators(
-    // can be just { createMessage } es6
     { createMessage: createMessage },
     dispatch)
 }

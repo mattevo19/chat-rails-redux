@@ -6,9 +6,10 @@ import { getMessages } from '../actions';
 import Message from '../components/message'
 import MessageForm from './message_form';
 
+
 class MessageList extends Component {
   componentDidMount() {
-    this.props.getMessages(this.props.selectedChannel)
+    this.getMessages(this.props.channelFromParams)
     // reduce time to make it more usable (1000) for 1 second
     // this.refresher = setInterval(this.getMessages, 10000);
   }
@@ -23,19 +24,19 @@ class MessageList extends Component {
   }
   //avoid syntax error when doing interval
   getMessages = () => {
-    this.props.getMessages(this.props.selectedChannel)
+    this.props.getMessages(this.props.channelFromParams)
   }
 
   render() {
     return (
       <div className='channel-container'>
         <div className="channel-title">
-          <span>Channel #{this.props.selectedChannel}</span>
+          <span>Channel #{this.props.channelFromParams}</span>
         </div>
         <div className="channel-content" ref={(list) => { this.list = list; }}>
           {this.props.messages.map(message => <Message message={message} key={message.created_at}/>)}
         </div>
-        <MessageForm />
+        <MessageForm channelFromParams={this.props.channelFromParams}/>
       </div>
     );
   }
@@ -51,8 +52,7 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages,
-    selectedChannel: state.selectedChannel
+    messages: state.messages
   };
 }
 
