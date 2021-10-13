@@ -34,10 +34,10 @@ ReactDOM.render(
   <Provider store={createStore(reducers,initialState,middleWares)}>
     <Router history={history}>
       <Switch>
-        <Route path='/:channel' component={App} />
-        <Redirect from='/' to='/general'/>
+        <Route path='/channels/:channel' component={App} />
+        {/* <Redirect from='/' to='/channels/general'/> */}
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('chat_app')
 );

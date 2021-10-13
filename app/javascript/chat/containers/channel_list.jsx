@@ -23,7 +23,7 @@ class ChannelList extends Component {
         role='presentation' 
         key={channel}
         >
-          <Link to={`/${channel}`}>
+          <Link to={`${channel}`}>
             #{channel}
           </Link>
     </li>
