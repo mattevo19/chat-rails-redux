@@ -15,11 +15,11 @@ import messagesReducer from './reducers/messages_reducer';
 import channelsReducer from './reducers/channels_reducer';
 import currentUserReducer from './reducers/current_user_reducer'
 
+const channels = JSON.parse(chat_app.dataset.channels).map(c => c.name)
 // State and reducers
 const initialState = {
   messages: [],
-  channels: [ 'general', 'react', 'berlin' ],
-  currentUser: `anonymous${Math.floor((Math.random() * 99))}`
+  channels: channels
 };
 
 const reducers = combineReducers({

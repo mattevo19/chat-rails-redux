@@ -18,7 +18,7 @@ ActiveRecord::Base.connection.tables.each do |t|
 end
 
 names = %w(general berlin react)
-nicknames = %w(Matt annie cecille steffen john)
+nicknames = %w(matt annie josh steffen tree)
 
 channels = names.map do |name|
   Channel.find_or_create_by(name: name)
@@ -26,7 +26,7 @@ end
 puts 'channels created'
 
 users = nicknames.map do |nickname|
-  User.create(email: "#{nickname.downcase}@lewagon.com", password: "testtest")
+  User.create(email: "#{nickname.downcase}@gmail.com", password: "testtest")
 end
 puts 'users created'
 
