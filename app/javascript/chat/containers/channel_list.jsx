@@ -13,9 +13,7 @@ class ChannelList extends Component {
       this.props.getMessages(nextProps.channelFromParams);
     }
   }
-
-
-
+  
   renderList = (channel) => {
     return(
       <li 

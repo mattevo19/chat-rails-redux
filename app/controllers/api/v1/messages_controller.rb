@@ -1,8 +1,10 @@
 class Api::V1::MessagesController < ApplicationController
   before_action :set_channel
-  
+
   def index
-    messages = @channel.messages.order('created_at ASC')
+    messages = @channel.messages.order('created_at ASC').map do |message|
+      render_message(message)
+    end
     render json: messages
   end
 
@@ -10,12 +12,21 @@ class Api::V1::MessagesController < ApplicationController
     message = @channel.messages.build(content: params[:content])
     message.user = current_user
     message.save
-    render json: message # see Message.as_json method
+    render json: render_message(message)
   end
 
   private
 
   def set_channel
-    @channel = Channel.find_by(name:params[:channel_id])
+    @channel = Channel.find_by(name: params[:channel_id])
+  end
+
+  def render_message(message)
+    {
+      id: message.id,
+      author: message.user.email,
+      content: message.content,
+      created_at: message.created_at
+    }
   end
 end
