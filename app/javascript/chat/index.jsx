@@ -6,6 +6,7 @@ import { createStore, combineReducers,applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
 import reduxPromise from 'redux-promise';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createHistory as history } from 'history';
 
 // internal modules
 import App from './components/app';
@@ -29,7 +30,7 @@ const middleWares = applyMiddleware(logger, reduxPromise)
 // render an instance of the component in the DOM
 ReactDOM.render(
   <Provider store={createStore(reducers,initialState,middleWares)}>
-    <Router>
+    <Router history={history}>
       <Switch>
         <Route path='/channels/:channel' component={App} />
       </Switch>
